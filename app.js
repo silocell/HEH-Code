@@ -6,7 +6,7 @@
   "use strict";
   var USER = "silocell";
   var PINNED = ["OpenMCL-Launcher", "HEH-Suite", "HEH-AI", "HEH-Homework"]; // shown first
-  var HIDE = /^(silocell)$/i;                                               // profile-readme repos
+  var HIDE = /^(silocell|LGNTHWHK)$/i;                                      // profile-readme repo, and ones kept off the list
   var app = document.getElementById("app");
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var LANG = { JavaScript: "#f1e05a", TypeScript: "#3178c6", HTML: "#e34c26", CSS: "#563d7c", Python: "#3572A5", Kotlin: "#A97BFF", "C#": "#178600", Swift: "#F05138", Shell: "#89e051", PLpgSQL: "#336790", Java: "#b07219" };
