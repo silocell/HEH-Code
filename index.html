@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chausima Code</title>
+<meta name="description" content="Browse the code behind Chausima and the Homework Launchpad: every public repository, file by file.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta name="theme-color" content="#1f3a93">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+<style>
+:root{
+  --paper:#fdfdf8; --grid:#d5e4f5; --grid-strong:#b9d1ee; --margin:#e2474b;
+  --ink:#1f3a93; --graphite:#262a33; --soft:#5b6170; --hl:#ffe94a; --card:#ffffff; --line:#c9d6e8; --hover:#eef3fb;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"Atkinson Hyperlegible",system-ui,sans-serif;
+  --hand:"Kalam","Comic Sans MS",cursive; --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --m:112px; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#1d2a24; --grid:rgba(255,255,255,.05); --grid-strong:rgba(255,255,255,.09); --margin:#f07a7d;
+  --ink:#f3f1e4; --graphite:#ecebe2; --soft:#aab4ad; --hl:#e8d34a; --card:#22302a; --line:rgba(255,255,255,.14); --hover:rgba(255,255,255,.06); color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;color:var(--graphite);font:16px/1.55 var(--body);background-color:var(--paper);
+  background-image:linear-gradient(var(--grid-strong) 1px,transparent 1px),linear-gradient(90deg,var(--grid-strong) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px}
+body::before{content:"";position:fixed;top:0;bottom:0;left:var(--m);width:2px;background:var(--margin);opacity:.75;pointer-events:none}
+a{color:var(--ink)}
+:focus-visible{outline:3px solid var(--margin);outline-offset:2px;border-radius:4px}
+.page{position:relative;padding:28px 32px 60px calc(var(--m) + 34px);max-width:1500px}
+.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.brand small{font-family:var(--hand);font-weight:400;color:var(--margin);font-size:1.05rem;margin-left:6px}
+.sp{flex:1}
+.top a.out{font-weight:700;font-size:.95rem}
+.crumbs{font-family:var(--mono);font-size:.92rem;margin:0 0 16px;color:var(--soft);overflow-wrap:anywhere}
+.crumbs a{text-decoration:none;font-weight:600}
+.crumbs a:hover{text-decoration:underline}
+h1{font-family:var(--display);font-weight:800;color:var(--ink);font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-.03em;line-height:1;margin:6px 0 8px}
+.lede{color:var(--soft);max-width:40em;margin:0 0 26px}
+.note{font-family:var(--hand);color:var(--margin)}
+/* repo list */
+.search{font:1rem var(--body);padding:10px 14px;border:2px solid var(--ink);border-radius:10px;background:var(--card);color:var(--graphite);width:min(100%,420px);margin-bottom:18px}
+.repos{list-style:none;margin:0;padding:0;max-width:1000px}
+.repos li{border-bottom:1px solid var(--line)}
+.repos a.r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;padding:14px 4px;text-decoration:none;color:var(--graphite)}
+.repos a.r:hover{background:var(--hover)}
+.repos b{font-family:var(--display);font-weight:600;font-size:1.25rem;color:var(--ink)}
+.repos .d{grid-column:1;color:var(--soft);font-size:.95rem}
+.repos .m{grid-row:1/3;grid-column:2;align-self:center;text-align:right;font-size:.85rem;color:var(--soft);white-space:nowrap}
+.lang{display:inline-flex;align-items:center;gap:6px}
+.lang i{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--soft)}
+.tag{font-family:var(--hand);font-size:.95rem;color:var(--soft);border:1.5px dashed var(--soft);border-radius:7px;padding:0 6px;margin-left:8px}
+/* repo view */
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+.btn{display:inline-block;text-decoration:none;font-family:var(--display);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:4px 4px 10px 4px;border:2px solid var(--ink);color:var(--ink);background:var(--card)}
+.btn.go{background:var(--ink);color:var(--paper)}
+.split{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}
+.tree{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 0;max-height:calc(100vh - 150px);overflow:auto;position:sticky;top:16px;font-size:.92rem}
+.tree a,.tree button{display:flex;align-items:center;gap:6px;width:100%;text-align:left;padding:4px 12px;color:var(--graphite);text-decoration:none;border:0;background:none;font:inherit;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tree a:hover,.tree button:hover{background:var(--hover)}
+.tree a[aria-current="page"]{background:var(--hl);color:#1d2a24;font-weight:700}
+.tree ul{list-style:none;margin:0;padding:0}
+.tree ul ul{padding-left:14px}
+.tree .ic{flex:none;width:1.1em;text-align:center}
+.view{background:var(--card);border:1px solid var(--line);border-radius:10px;min-height:300px;overflow:hidden}
+.vhead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--soft)}
+.vhead b{font-family:var(--mono);color:var(--graphite);font-size:.95rem}
+.vhead .sp{flex:1}
+.code{display:grid;grid-template-columns:auto minmax(0,1fr);font:13.5px/1.6 var(--mono);overflow:auto;max-height:calc(100vh - 210px)}
+.code .ln{padding:12px 10px 12px 16px;text-align:right;color:var(--soft);user-select:none;border-right:1px solid var(--line);white-space:pre}
+.code pre{margin:0;padding:12px 16px;overflow:visible}
+.code pre code{background:none!important;padding:0!important;white-space:pre}
+.md{padding:18px 26px 26px;max-width:860px;overflow-wrap:anywhere}
+.md h1,.md h2,.md h3{font-family:var(--display);color:var(--ink);letter-spacing:-.01em;line-height:1.15}
+.md h1{font-size:2rem}.md h2{font-size:1.5rem;border-bottom:1px solid var(--line);padding-bottom:4px}
+.md pre{background:var(--hover);padding:12px;border-radius:8px;overflow:auto;font:13px/1.55 var(--mono)}
+.md code{font-family:var(--mono);font-size:.9em}
+.md img{max-width:100%}
+.md table{border-collapse:collapse}.md td,.md th{border:1px solid var(--line);padding:4px 8px}
+.pic{padding:20px;text-align:center}.pic img{max-width:100%;max-height:70vh;background:repeating-conic-gradient(var(--hover) 0 25%,transparent 0 50%) 0 0/16px 16px}
+.empty{padding:40px 24px;color:var(--soft);text-align:center}
+.empty .note{font-size:1.4rem;display:block;margin-bottom:6px}
+.files{list-style:none;margin:0;padding:0}
+.files a{display:flex;gap:10px;padding:8px 16px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--graphite)}
+.files a:hover{background:var(--hover)}
+.wait{padding:40px;text-align:center;color:var(--soft);font-family:var(--hand);font-size:1.3rem}
+.menu{display:none}
+@media (max-width:900px){
+  :root{--m:14px}
+  .page{padding:18px 16px 50px 30px}
+  .split{grid-template-columns:1fr}
+  .tree{position:static;max-height:none;display:none}
+  .tree.open{display:block}
+  .menu{display:inline-block}
+  .repos a.r{grid-template-columns:1fr}.repos .m{grid-row:auto;grid-column:1;text-align:left}
+  .code{max-height:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <a class="brand" href="#/">Chausima Code<small>the notebook's workings</small></a>
+    <span class="sp"></span>
+    <a class="out" href="https://chausima.com">Back to Chausima</a>
+    <a class="out" href="https://github.com/silocell">GitHub profile</a>
+  </header>
+  <main id="app" aria-live="polite"><p class="wait">Opening the notebook…</p></main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<script src="/app.js?b=20261111a"></script>
+</body>
+</html>
